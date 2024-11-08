@@ -8,7 +8,7 @@ import SelectButton from "../../../molecules/input/SelectButton";
 import InputFile from "../../../molecules/input/InputFile";
 import { url } from "../../../assets/url";
 import { message } from "antd";
-const handleSubmit = async (values, { setSubmitting }) => {
+const handleSubmit = async (values, { setSubmitting ,resetForm}) => {
   const formData = new FormData();
 
   // Loop over each file and append its details
@@ -33,7 +33,7 @@ const handleSubmit = async (values, { setSubmitting }) => {
 
     const result = await response.json();
     message.success("User created successfully!"); // Show success message
-    console.log(result); // Handle response
+    resetForm(); // Handle response
   } catch (error) {
     console.error("Error uploading data:", error);
   }
@@ -116,7 +116,6 @@ const CreateUser = ({ formValue }) => {
           {({ isSubmitting, values, setFieldValue }) => (
             <Form className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {/* Basic Info Fields */}
-              {console.log("lion", values)}
               <InputField
                 placeholder={"Enter your first name here"}
                 required={true}
@@ -223,6 +222,7 @@ const CreateUser = ({ formValue }) => {
                             </button>
                           )}
                         </div>
+
                       ))}
                       <button
                         type="button"
