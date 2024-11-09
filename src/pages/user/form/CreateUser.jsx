@@ -8,7 +8,7 @@ import SelectButton from "../../../molecules/input/SelectButton";
 import InputFile from "../../../molecules/input/InputFile";
 import { url } from "../../../assets/url";
 import { message } from "antd";
-const handleSubmit = async (values, { setSubmitting ,resetForm}) => {
+const handleSubmit = async (values, { setSubmitting, resetForm }) => {
   const formData = new FormData();
 
   // Loop over each file and append its details
@@ -46,7 +46,15 @@ const CreateUser = ({ formValue }) => {
   const validationSchema = yup.object().shape({
     firstName: yup.string().required("First name is required"),
     lastName: yup.string().required("Last name is required"),
-    email: yup.string().email("Invalid email").required("Email is required"),
+    email: yup
+      .string()
+      .email("Invalid email")
+      .matches(
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/,
+        "Email must be a valid address ending with .com"
+      )
+      .required("Email is required"),
+
     birthDate: yup
       .date()
       .required("Birth date is required")
@@ -222,7 +230,6 @@ const CreateUser = ({ formValue }) => {
                             </button>
                           )}
                         </div>
-
                       ))}
                       <button
                         type="button"
